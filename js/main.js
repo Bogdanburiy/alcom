@@ -20,6 +20,16 @@ $(document).ready(function () {
         nextArrow: $('.intro-product__navs-next'),
     });
 
+    // Single product gallery
+    $('.product-gallery__carousel').slick({
+        infinite: true,
+        speed: 300,
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        prevArrow: $('.single-gallery__prev'),
+        nextArrow: $('.single-gallery__next'),
+    });
+
     // Team carousel
     $('.company-content__team-carousel').slick({
         infinite: true,
@@ -83,5 +93,33 @@ $(document).ready(function () {
             imageSet.src = imageSrc;
         });
     }
-    
+
+    // Hovering menu
+    $(".header .header-menu nav ul li.has-submenu").hover(function () {
+        $('.header').addClass("visible");
+    }, function () {
+        $('.header').removeClass("visible");
+    });
+
+    // Show hidden contact form on click "Single product page"
+    $('.single-product__form').hide();
+    $('.single-product__bottom-contact a').on('click', function() {
+        $(this).toggleClass('active');
+        $('.single-product__form').slideToggle('slow');
+    });
+    $('.single-product__form-close').on('click', function() {
+        $('.single-product__form').slideToggle('slow');
+        $('.single-product__bottom-contact a').removeClass('active');
+    });
+
+    // Scroll to contact form on click Question block
+    $('#question-block').on('click', function() {
+        $('html, body').animate({
+            scrollTop: $(".single-product__bottom").offset().top - 100,
+        }, 150);
+        if ( $('.single-product__form').is(":hidden") ) {
+            $('.single-product__form').slideToggle('slow');
+            $('.single-product__bottom-contact a').addClass('active');
+        }
+    });
 });
